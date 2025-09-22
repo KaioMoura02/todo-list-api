@@ -35,7 +35,7 @@ export class UserService {
   async findUserById(id: string): Promise<CreateUserDto> {
     const user = await this.prisma.user.findUnique({ where: { id } });
 
-    if (!user) throw new BadRequestException('Usuário nao encontrado');
+    if (!user) throw new BadRequestException('Usuário não encontrado');
 
     return this.buildUser(user);
   }
@@ -43,7 +43,7 @@ export class UserService {
   async findUserByEmail(email: string): Promise<CreateUserDto | null> {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (!user) throw new NotFoundException('Usuário nao encontrado');
+    if (!user) throw new NotFoundException('Usuário não encontrado');
 
     return this.buildUser(user);
   }
@@ -56,7 +56,7 @@ export class UserService {
 
     const user = await this.findUserById(id);
 
-    if (!user) throw new BadRequestException('Usuário nao encontrado');
+    if (!user) throw new BadRequestException('Usuário não encontrado');
 
     return await this.prisma.user.update({ where: { id }, data });
   }
@@ -64,7 +64,7 @@ export class UserService {
   async deleteUser(id: string): Promise<CreateUserDto> {
     const user = await this.findUserById(id);
 
-    if (!user) throw new BadRequestException('Usuário nao encontrado');
+    if (!user) throw new BadRequestException('Usuário não encontrado');
 
     return await this.prisma.user.delete({ where: { id } });
   }
