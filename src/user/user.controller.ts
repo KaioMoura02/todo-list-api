@@ -1,5 +1,5 @@
 import { CreateUserDto } from './dto/create-user.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { UserService } from './user.service';
 import { Prisma } from 'generated/prisma';
 import {

@@ -17,9 +17,6 @@ export class TasksService {
     createTaskDto: CreateTaskDto,
     userId: string,
   ): Promise<CreateTaskDto> {
-    if (!(await this.verifyUser(userId)))
-      throw new NotFoundException('Usuário inválido');
-
     const taskCreated = await this.prisma.task.create({
       data: { ...createTaskDto, userId },
     });
@@ -28,8 +25,6 @@ export class TasksService {
   }
 
   async findAll(userId: string): Promise<ListTaskDto[]> {
-    if (!(await this.verifyUser(userId))) return [];
-
     const tasks = await this.prisma.task.findMany({ where: { userId } });
 
     return tasks.map((task) => this.buildTask(task));
@@ -79,15 +74,5 @@ export class TasksService {
       status: TASKS_STATUS[task.status],
       endDate: task.end_date,
     };
-  }
-
-  private async verifyUser(userId: string): Promise<boolean> {
-    if (!userId) throw new NotFoundException('Usuário inválido');
-
-    const user = await this.userService.findUserById(userId);
-
-    if (!user) throw new NotFoundException('Usuário não encontrado');
-
-    return true;
   }
 }
