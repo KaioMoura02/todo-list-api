@@ -31,6 +31,8 @@ model Task {
   title       String
   description String
   endDate     DateTime @map("end_date")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
   status      String
   userId      String   @map("user_id")
   user        User     @relation(fields: [userId], references: [id])
